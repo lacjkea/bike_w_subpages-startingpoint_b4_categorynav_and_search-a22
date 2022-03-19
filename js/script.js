@@ -1,8 +1,8 @@
-window.addEventListener('DOMContentLoaded', getData);
+window.addEventListener("DOMContentLoaded", getData);
 
 //const datalink = "https://annadagbjort.dk/cms-theme/bikes/wp-json/wp/v2/bike?_embed"; - thanks ;-)
-const datalink2 = "https://lasseclaes.com/20f/2nd_sem_int/wp/wp-json/wp/v2/bikes?_embed";
-
+// const datalink2 = "https://lasseclaes.com/20f/2nd_sem_int/wp/wp-json/wp/v2/bikes?_embed";
+const datalink2 = "https://wps22.it-studerende.dk/wp-json/wp/v2/posts?_embed";
 function getData() {
   //console.log('DOM fully loaded and parsed');
   const urlParams = new URLSearchParams(window.location.search);
@@ -12,13 +12,19 @@ function getData() {
 
   //"our routing in the script"
   if (the_bike_id) {
-    fetch("https://lasseclaes.com/20f/2nd_sem_int/wp/wp-json/wp/v2/bikes/" + the_bike_id + "?_embed")
-      .then(res => res.json())
-      .then(showBike) //skipping the forEach loop
+    console.log("no the_bike_id");
+    alert("check js l. 17");
+    fetch(
+      "https://lasseclaes.com/20f/2nd_sem_int/wp/wp-json/wp/v2/bikes/" +
+        the_bike_id +
+        "?_embed"
+    )
+      .then((res) => res.json())
+      .then(showBike); //skipping the forEach loop
   } else {
     fetch(datalink2)
-      .then(res => res.json())
-      .then(handleData)
+      .then((res) => res.json())
+      .then(handleData);
   }
 }
 
@@ -36,7 +42,8 @@ function showBike(bike) {
 
   //lacj: copy.querySelector(".brand").textContent = bikes.brand;
 
-  copy.querySelector(".brand").textContent = bike._embedded["wp:term"][0][1].name;
+  copy.querySelector(".brand").textContent =
+    bike._embedded["wp:term"][0][1].name;
   //  console.log('hey')
   //  console.log(bikes._embedded["wp:term"]);
 
@@ -49,34 +56,42 @@ function showBike(bike) {
 
   copy.querySelector(".inStock").textContent = bike.in_stock;
 
-  copy.querySelector(".img-bike").src = bike._embedded["wp:featuredmedia"][0].media_details.sizes.medium.source_url
+  copy.querySelector(".img-bike").src =
+    bike._embedded["wp:featuredmedia"][0].media_details.sizes.medium.source_url;
   copy.querySelector(".img-bike").alt = bike.brand;
 
   if (bike.price_to == false) {
     copy.querySelector(".twoPrices").classList.add("hide");
   }
+  // const colorArray = bike.colours.split(",");
+  const colorArray = [];
 
-  const colorArray = bike.colours.split(",");
+  // alert("hey");
+  console.log(bike._embedded["wp:term"][1]);
+  bike._embedded["wp:term"][1].forEach((element) => {
+    colorArray.push(element.name);
+  });
+  console.log(colorArray);
 
-  colorArray.forEach(color => {
+  colorArray.forEach((color) => {
     const col = document.createElement("div");
     col.classList.add("colourDiv");
     col.style.background = color;
-    copy.querySelector(".colour").appendChild(col)
-  })
+    copy.querySelector(".colour").appendChild(col);
+  });
 
   if (bike.colours == false) {
-    copy.querySelector(".colour").textContent = ("N/A");
+    copy.querySelector(".colour").textContent = "N/A";
   }
 
-  const a = copy.querySelector('a');
+  const a = copy.querySelector("a");
   if (a) {
     a.href += bike.id;
   }
   /*takes the existing string value from the ahref attr.
                            and adds the bike.id from JSON to it*/
 
-  const divBikeDescription = copy.querySelector('#bike-description');
+  const divBikeDescription = copy.querySelector("#bike-description");
   if (divBikeDescription) {
     divBikeDescription.innerHTML = bike.content.rendered;
   }
