@@ -1,6 +1,8 @@
 # bike_w_subpages
 
-Exercise: recreate this - 
+https://github.com/lacjkea/bike_w_subpages-startingpoint_b4_categorynav_and_search-s22
+
+Exercise: recreate this -
 https://ui-patterns.com/patterns/cards/examples/17796
 
 Originally forked from https://github.com/annadagbjort/recreate-bike/
