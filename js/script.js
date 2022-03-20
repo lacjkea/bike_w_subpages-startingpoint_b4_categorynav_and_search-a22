@@ -2,7 +2,7 @@ window.addEventListener("DOMContentLoaded", getData);
 
 //const datalink = "https://annadagbjort.dk/cms-theme/bikes/wp-json/wp/v2/bike?_embed"; - thanks ;-)
 // const datalink2 = "https://lasseclaes.com/20f/2nd_sem_int/wp/wp-json/wp/v2/bikes?_embed";
-const datalink2 = "https://wps22.it-studerende.dk/wp-json/wp/v2/posts?_embed";
+const datalink2 = "https://wps22.it-studerende.dk/wp-json/wp/v2/bike?_embed";
 function getData() {
   //console.log('DOM fully loaded and parsed');
   const urlParams = new URLSearchParams(window.location.search);
