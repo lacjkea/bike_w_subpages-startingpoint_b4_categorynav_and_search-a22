@@ -1,8 +1,6 @@
 window.addEventListener("DOMContentLoaded", getData);
 
-//const datalink = "https://annadagbjort.dk/cms-theme/bikes/wp-json/wp/v2/bike?_embed"; - thanks ;-)
-// const datalink2 = "https://lasseclaes.com/20f/2nd_sem_int/wp/wp-json/wp/v2/bikes?_embed";
-const datalink2 = "https://wps22.it-studerende.dk/wp-json/wp/v2/posts?_embed";
+const endpoint = "https://it-studerende.dk/biketest/wp-json/wp/v2/bike?_embed";
 function getData() {
   //console.log('DOM fully loaded and parsed');
   const urlParams = new URLSearchParams(window.location.search);
@@ -15,27 +13,27 @@ function getData() {
     console.log("no the_bike_id");
     alert("check js l. 17");
     fetch(
-      "https://lasseclaes.com/20f/2nd_sem_int/wp/wp-json/wp/v2/bikes/" +
+      "https://it-studerende.dk/biketest/wp-json/wp/v2/bike/" +
         the_bike_id +
         "?_embed"
     )
       .then((res) => res.json())
       .then(showBike); //skipping the forEach loop
   } else {
-    fetch(datalink2)
+    fetch(endpoint)
       .then((res) => res.json())
       .then(handleData);
   }
 }
 
 function handleData(posts) {
-  //console.log(posts);
+  console.log("what", posts);
   posts.forEach(showBike); //looping through all bikes
 }
 
 function showBike(bike) {
   console.log(bike);
-  console.log(bike.content.rendered);
+  // console.log(bike.content.rendered);
   const template = document.querySelector("template").content;
   const copy = template.cloneNode(true);
   //console.log(bike._embedded["wp:featuredmedia"][0].media_details.sizes.medium.source_url)
