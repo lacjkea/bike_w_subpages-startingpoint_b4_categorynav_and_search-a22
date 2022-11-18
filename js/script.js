@@ -1,17 +1,17 @@
 window.addEventListener("DOMContentLoaded", getData);
 
 const endpoint = "https://it-studerende.dk/biketest/wp-json/wp/v2/bike?_embed";
+const urlParams = new URLSearchParams(window.location.search);
+
+console.log("URLSearchParams " + window.location);
+const the_bike_id = urlParams.get("bike_id"); //getting the id from the URL
+console.log(the_bike_id);
+
 function getData() {
   //console.log('DOM fully loaded and parsed');
-  const urlParams = new URLSearchParams(window.location.search);
-  console.log("URLSearchParams " + window.location);
-  const the_bike_id = urlParams.get("bike_id"); //getting the id from the URL
-  console.log(the_bike_id);
-
   //"our routing in the script"
   if (the_bike_id) {
-    console.log("no the_bike_id");
-    alert("check js l. 17");
+    console.log("++the_bike_id");
     fetch(
       "https://it-studerende.dk/biketest/wp-json/wp/v2/bike/" +
         the_bike_id +
@@ -20,6 +20,7 @@ function getData() {
       .then((res) => res.json())
       .then(showBike); //skipping the forEach loop
   } else {
+    console.log("no the_bike_id");
     fetch(endpoint)
       .then((res) => res.json())
       .then(handleData);
@@ -86,13 +87,9 @@ function showBike(bike) {
   if (a) {
     a.href += bike.id;
   }
-  /*takes the existing string value from the ahref attr.
-                           and adds the bike.id from JSON to it*/
+  /*takes the existing string value from the ahref attr.and adds the bike.id from JSON to it*/
 
-  const divBikeDescription = copy.querySelector("#bike-description");
-  if (divBikeDescription) {
-    divBikeDescription.innerHTML = bike.content.rendered;
-  }
+  //Perhaps add description on single-bikei page?
 
   //  a.addEventListener('click', function (e) {
   //    e.preventDefault();
